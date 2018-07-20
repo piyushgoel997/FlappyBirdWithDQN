@@ -81,7 +81,7 @@ class Game:
         if check_crashed(self.birdx, self.birdy, self.pipes):
             reward = -1
             self.game_over = True
-            # TODO do something if game over
+            self.__init__()
 
         # display everything
         game_screen.blit(BACKGROUND, (0, 0))
@@ -162,4 +162,7 @@ if __name__ == '__main__':
             if e.type == pygame.KEYDOWN:
                 if e.key == pygame.K_SPACE:
                     action = [0, 1]
+            if e.type == pygame.QUIT:
+                pygame.quit()
+                quit()
         _, rew, game_over = game.game_step(action=action)
