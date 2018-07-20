@@ -12,7 +12,6 @@ PIPE_GAP = 100
 PIPE_WIDTH = 75
 FALL_ACCELERATION = 1
 BIRD_MAX_VELOCITY = -10
-min_valy = 8
 PIPE_VELOCITY = 4
 
 FPS = 30
@@ -76,6 +75,7 @@ class Game:
             p_mid = p['x'] + PIPE_WIDTH / 2
             if p_mid <= bird_mid < p_mid + PIPE_VELOCITY:
                 reward = 1
+                self.score += 1
                 break  # the bird can only be crossing one set of pipes at a time
 
         if check_crashed(self.birdx, self.birdy, self.pipes):
@@ -87,6 +87,7 @@ class Game:
         game_screen.blit(BACKGROUND, (0, 0))
         game_screen.blit(BIRD_IMG, (self.birdx, self.birdy))
         display_pipes(self.pipes)
+        display_score(self.score)
 
         # update coordinates
         self.birdy += self.bird_velocity
@@ -140,6 +141,13 @@ def display_pipes(pipes):
         game_screen.blit(PIPE_IMG, (p['x'], p['y']))
         # pygame.draw.rect(game_screen, (0, 0, 0), [p['x'], max(0, p['y']),
         #                                           p['x'] + PIPE_WIDTH, min(SCREEN_HEIGHT, p['y'] + PIPE_HEIGHT)])
+    return
+
+
+def display_score(score):
+    font = pygame.font.SysFont(None, 25)
+    text = font.render("Score = " + str(score), True, (100, 100, 100))
+    game_screen.blit(text, (0, 0))
     return
 
 
