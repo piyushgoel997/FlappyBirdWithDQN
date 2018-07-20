@@ -9,8 +9,8 @@ import numpy as np
 import time
 
 LEARNING_RATE = 0.001
-INITIAL_EPSILON = 1
-FINAL_EPSILON = 0.1
+INITIAL_EPSILON = 0.5
+FINAL_EPSILON = 0.0001
 REPLAY_MEMORY_SIZE = 10000
 MINIBATCH_SIZE = 32
 GAMMA = 0.99
@@ -120,7 +120,7 @@ def train():
         iteration += 1
 
         if iteration % 1000 == 0:
-            model.save_weights("model\\saved_model", overwrite=True)
+            model.save_weights("model", overwrite=True)
             print("model saved")
 
         print("iteration " + str(iteration) +
@@ -129,7 +129,7 @@ def train():
               " in time " + str(time.time() - start_time))
 
         # reduce the epsilon gradually
-        if iteration > 320 and epsilon < FINAL_EPSILON:
+        if iteration > 320 and epsilon > FINAL_EPSILON:
             epsilon -= 1.0e-6
 
 
